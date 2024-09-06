@@ -191,6 +191,8 @@ class OdooRecordHandler(Component):
         odoo_record = self.odoo_find(values, orig_values).with_context(
             **self.write_context()
         )
+        if "product_tmpl_id" not in orig_values and odoo_record.product_tmpl_id:
+            values.pop("product_tmpl_id")
         # copy values to not affect original values (mainly for introspection)
         values_for_write = values.copy()
         # purge unneeded values
